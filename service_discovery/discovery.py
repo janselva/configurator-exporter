@@ -420,6 +420,7 @@ def discover_services():
         for item in pid_list:
             service_pid_dict = {}
             service_pid_dict["PID"] = []
+            #service_pid_dict["PID"] = item["process_id"]
 
             # Add PID, cpuUsage, memUsage, status to service_discovery
             service_pid_dict["PID"] = item["process_id"]
@@ -442,7 +443,6 @@ def discover_services():
                 logger_dict = add_logger_config(port_dict, service)
                 logger_dict["pollerConfig"] = {}
                 final_dict = add_agent_config(service, logger_dict)
-
             discovery[SERVICE_NAME[service]].append(final_dict)
 
     for service in get_hadoop_service_list(discovery.keys()):
@@ -461,5 +461,6 @@ def discover_services():
         var['agentConfig'] = {'name':'nginxplus'}
         discovery['nginxplus'] = [var]
 
+            discovery[SERVICE_NAME[service]].append(final_dict)
     logger.info("Discovered service %s", discovery)
     return discovery
